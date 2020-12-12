@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PruebaTecnica.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Empleados registrados</h1>
+
+<p>
+    <a class="btn btn-primary fas fa-plus-circle" asp-action="Create"> Crear Empleado</a>
+</p>
+
+
+<div class="row d-flex justify-content-end" >
+    
+    <div class="col-md-4">
+        <label class="control-label">Seleccionar</label>
+        <select class="form-control" id="buscar" asp-items="ViewBag.IdArea">
+            <option value="Todas">Todas</option>
+        </select>
+    </div>
+</div>
+<br />
+<table id="tb" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaIngreso)
+            </th>
+            <th>
+                Área
+            </th>
+            <th>
+                Jefe
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @Convert.ToDateTime(item.FechaNacimiento).ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Convert.ToDateTime(item.FechaIngreso).ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAreaNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdJefeNavigation.NombreCompleto)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-sm btn-warning fas fa-edit" style="color:#FFF;" asp-route-id="@item.IdEmpleado"></a> |
+                    <a asp-action="Details" class="btn btn-sm btn-info far fa-eye" asp-route-id="@item.IdEmpleado"></a> |
+                    <a asp-action="Delete" class=" btn btn-sm btn-danger fas fa-trash-alt " asp-route-id="@item.IdEmpleado"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/js/empleados.js"></script>
+}

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PruebaTecnica.Models.Area>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Áreas registradas</h1>
+
+<p>
+    <a class="btn btn-primary fas fa-plus-circle" asp-action="Create"> Crear Área</a>
+</p>
+<table class="table" style="width:100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td >
+                <a asp-action="Edit" class="btn btn-sm btn-warning fas fa-edit" style="color:#FFF;" asp-route-id="@item.IdArea"></a> |
+                <a asp-action="Delete"class=" btn btn-sm btn-danger fas fa-trash-alt " asp-route-id="@item.IdArea"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
